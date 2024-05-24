@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% block title %}Report {% endblock %}
+
+{% block body %}
+<div class="split left" style="padding-top: 15px;">
+    <div class="centered">
+        <br> <br>
+        <h2 style="color: aqua;">Left Ear</h2>
+        <div id="leftEarAudiogram"></div>
+        <img src="data:image/png;base64,{{ plot_base64_L }}" alt="Audiogram Plot">        
+        <br><br>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Parameter</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Type of Hearing Loss</th>
+                <td>Reverse Sloping</td>
+              </tr>
+              <tr>
+                <th scope="row">Degree of Hearing Loss</th>
+                <td>
+                  {% if predicted_class_L == 'Normal' %}
+                    Normal Hearing
+                  {% elif predicted_class_L in ['Sloping', 'Reverse Sloping', 'Cookie Bite', 'Reverse Cookie Bite', 'Notched','Atypical'] %}
+                    {% if max_L >= -10 and max_L <= 15 %}
+                      Normal Hearing
+                    {% elif max_L >= 16 and max_L <= 25 %}
+                      Slight Hearing Loss
+                    {% elif max_L >= 26 and max_L <= 40 %}
+                      Mild Hearing Loss
+                    {% elif max_L >= 41 and max_L <= 55 %}
+                      Moderate Hearing Loss
+                    {% elif max_L >= 56 and max_L <= 70 %}
+                      Moderately Severe Hearing Loss
+                    {% elif max_L >= 71 and max_L <= 90 %}
+                      Severe Hearing Loss
+                    {% elif max_L >= 91 %}
+                      Profound Hearing Loss
+                    {% endif %}
+                  {% elif predicted_class_L == 'Flat' %}
+                    {% if avg_L >= -10 and avg_L <= 15 %}
+                      Normal Hearing
+                    {% elif avg_L >= 16 and avg_L <= 25 %}
+                      Slight Hearing Loss
+                    {% elif avg_L >= 26 and avg_L <= 40 %}
+                      Mild Hearing Loss
+                    {% elif avg_L >= 41 and avg_L <= 55 %}
+                      Moderate Hearing Loss
+                    {% elif avg_L >= 56 and avg_L <= 70 %}
+                      Moderately Severe Hearing Loss
+                    {% elif avg_L >= 71 and avg_L <= 90 %}
+                      Severe Hearing Loss
+                    {% elif avg_L >= 91 %}
+                      Profound Hearing Loss
+                    {% endif %}
+                  {% endif %}
+                </td>
+                
+              </tr>
+              <tr>
+                <th scope="row">Recommendations</th>
+                <td>
+                  {% if predicted_class_L == 'Normal' %}
+                    No specific recommendations. Continue regular check-ups with your audiologist.
+                  {% elif predicted_class_L in ['Sloping', 'Reverse Sloping', 'Cookie Bite', 'Reverse Cookie Bite', 'Notched', 'Atypical'] %}
+                    {% if max_L >= -10 and max_L <= 15 %}
+                      No specific recommendations. Continue regular check-ups with your audiologist.
+                    {% elif max_L >= 16 and max_L <= 25 %}
+                      Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                    {% elif max_L >= 26 and max_L <= 40 %}
+                      Consult with an audiologist for further evaluation and discuss potential treatment options.
+                    {% elif max_L >= 41 and max_L <= 55 %}
+                      Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                    {% elif max_L >= 56 and max_L <= 70 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% elif max_L >= 71 and max_L <= 90 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% elif max_L >= 91 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% endif %}
+                  {% elif predicted_class_R == 'Flat' %}
+                    {% if avg_L >= -10 and avg_L <= 15 %}
+                      No specific recommendations. Continue regular check-ups with your audiologist.
+                    {% elif avg_L >= 16 and avg_L <= 25 %}
+                      Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                    {% elif avg_L >= 26 and avg_L <= 40 %}
+                      Consult with an audiologist for further evaluation and discuss potential treatment options.
+                    {% elif avg_L >= 41 and avg_L <= 55 %}
+                      Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                    {% elif avg_L >= 56 and avg_L <= 70 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% elif avg_L >= 71 and avg_L <= 90 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% elif avg_L >= 91 %}
+                      Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                    {% endif %}
+                  {% endif %}
+                </td>         
+                  </tr>
+            </tbody>
+          </table>
+        
+    </div>
+  </div>
+  
+  <div class="split right">
+    <div class="centered">
+      <br><br>
+      <h2 style="color: aqua;">Right Ear</h2>
+      <img src="data:image/png;base64,{{ plot_base64_R }}" alt="Audiogram Plot">  
+      <!-- <div>
+        <h3>Threshold Values:</h3>
+            {% for value in thresholdvalues_R %}
+                {{ value }}
+            {% endfor %}
+    </div>       -->
+      <br>
+      <br>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Parameter</th>
+            <th scope="col">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Type of Hearing Loss</th>
+            <td>Reverse Sloping</td>
+          </tr>
+          <tr>
+            <th scope="row">Degree of Hearing Loss</th>
+            <td>
+              {% if predicted_class_R == 'Normal' %}
+                Normal Hearing
+              {% elif predicted_class_R in ['Sloping', 'Reverse Sloping', 'Cookie Bite', 'Reverse Cookie Bite', 'Notched'] %}
+                {% if max_R >= -10 and max_R <= 15 %}
+                  Normal Hearing
+                {% elif max_R >= 16 and max_R <= 25 %}
+                  Slight Hearing Loss
+                {% elif max_R >= 26 and max_R <= 40 %}
+                  Mild Hearing Loss
+                {% elif max_R >= 41 and max_R <= 55 %}
+                  Moderate Hearing Loss
+                {% elif max_R >= 56 and max_R <= 70 %}
+                  Moderately Severe Hearing Loss
+                {% elif max_R >= 71 and max_R <= 90 %}
+                  Severe Hearing Loss
+                {% elif max_R >= 91 %}
+                  Profound Hearing Loss
+                {% endif %}
+              {% elif predicted_class_R == 'Flat' or predicted_class_R == 'Atypical' %}
+                {% if avg_R >= -10 and avg_R <= 15 %}
+                  Normal Hearing
+                {% elif avg_R >= 16 and avg_R <= 25 %}
+                  Mild Hearing Loss
+                {% elif avg_R >= 26 and avg_R <= 40 %}
+                  Mild Hearing Loss
+                {% elif avg_R >= 41 and avg_R <= 55 %}
+                  Moderate Hearing Loss
+                {% elif avg_R >= 56 and avg_R <= 70 %}
+                  Moderately Severe Hearing Loss
+                {% elif avg_R >= 71 and avg_R <= 90 %}
+                  Severe Hearing Loss
+                {% elif avg_R >= 91 %}
+                  Profound Hearing Loss
+                {% endif %}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Recommendations</th>
+            <td>
+              {% if predicted_class_R == 'Normal' %}
+                No specific recommendations. Continue regular check-ups with your audiologist.
+              {% elif predicted_class_R in ['Sloping', 'Reverse Sloping', 'Cookie Bite', 'Reverse Cookie Bite', 'Notched', 'Atypical'] %}
+                {% if max_R >= -10 and max_R <= 15 %}
+                  No specific recommendations. Continue regular check-ups with your audiologist.
+                {% elif max_R >= 16 and max_R <= 25 %}
+                  Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                {% elif max_R >= 26 and max_R <= 40 %}
+                  Consult with an audiologist for further evaluation and discuss potential treatment options.
+                {% elif max_R >= 41 and max_R <= 55 %}
+                  Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                {% elif max_R >= 56 and max_R <= 70 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% elif max_R >= 71 and max_R <= 90 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% elif max_R >= 91 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% endif %}
+              {% elif predicted_class_R == 'Flat' %}
+                {% if avg_R >= -10 and avg_R <= 15 %}
+                  No specific recommendations. Continue regular check-ups with your audiologist.
+                {% elif avg_R >= 16 and avg_R <= 25 %}
+                  Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                {% elif avg_R >= 26 and avg_R <= 40 %}
+                  Consult with an audiologist for further evaluation and discuss potential treatment options.
+                {% elif avg_R >= 41 and avg_R <= 55 %}
+                  Consider using hearing aids or assistive listening devices. Consult with an audiologist for personalized recommendations.
+                {% elif avg_R >= 56 and avg_R <= 70 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% elif avg_R >= 71 and avg_R <= 90 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% elif avg_R >= 91 %}
+                  Consider cochlear implants or other advanced hearing devices. Consult with an audiologist for personalized recommendations.
+                {% endif %}
+              {% endif %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
+  </div>
+
+<style>
+    .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: #33339c;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color: rgb(215, 92, 92);
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 350px;
+  /* border-radius: 50%; */
+}
+</style>
+
+<!-- <script>
+  fetch('/report_L')
+      .then(response => response.blob())
+      .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const img = document.createElement('img');
+          img.src = url;
+          
+          // Display the audiogram plot in the left ear section
+          document.getElementById('leftEarAudiogram').appendChild(img);
+          
+          // Display the audiogram plot in the right ear section
+          // Use a separate image element if needed
+          // document.getElementById('rightEarAudiogram').appendChild(img.cloneNode(true));
+      })
+      .catch(error => {
+          console.error('Error fetching audiogram:', error);
+      });
+</script> -->
+
+
+<!-- <script>
+  // Fetch and display audiogram plots
+  fetch('/report_R')
+      .then(response => response.blob())
+      .then(blob => {
+          // Convert the blob to a URL
+          const url = URL.createObjectURL(blob);
+
+          // Set the src attribute of the audiogram placeholders
+          document.getElementById('leftEarAudiogram').innerHTML = `<img src="${url}" alt="Left Ear Audiogram">`;
+          // document.getElementById('rightEarAudiogram').innerHTML = `<img src="${url}" alt="Right Ear Audiogram">`;
+      })
+      .catch(error => {
+          console.error('Error fetching audiogram:', error);
+      });
+</script> -->
+
+<!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+
+{% endblock %}
+

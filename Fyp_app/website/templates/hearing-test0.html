@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+{% block title %}Hearing Test {% endblock %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block body %}
+
+<div class="instructions-box">
+    <h1>Instructions</h1>
+    <p>
+        <ol>
+            <li>Insert earphones into ears</li>
+            <li>Choose which ear to test</li>
+            <li>If you can hear the sound, click on "Can hear", and if you are unable to hear it, click on "Cannot hear"</li>
+            <li>Continue until no more sounds are heard</li> 
+            <li>End test to generate the report</li>   
+  
+        </ol>
+    </p>
+</div> 
+<br> <br>
+
+<div class="lr">
+    <a class="shadow__btn" href="/hearing-test_L" role="button" title="Click here to test your left ear">Left Ear</a>
+    <a class="shadow__btn" href="/hearing-test_R" role="button" title="Click here to test your Right ear">Right Ear</a>
+</div>
+
+{% endblock %}

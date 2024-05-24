@@ -1,0 +1,168 @@
+<!-- {% extends "base.html" %}
+{% block title %}Report {% endblock %}
+
+{% block body %}
+<div class="split left">
+    <div class="centered">
+        <h2 style="color: aqua;">Left Ear</h2>
+        <img src="\static\images\audiogram1.jpg" alt="Avatar woman">
+        <br><br>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Parameter</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Type of Hearing Loss</th>
+                <td>-</td>
+              </tr>
+              <tr>
+                <th scope="row">Degree of Hearing Loss</th>
+                <td>-</td>
+              </tr>
+              <tr>
+                <th scope="row">Recommendations</th>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+  </div>
+  
+  <div class="split right">
+    <div class="centered">
+      <h2 style="color: aqua;">Right Ear</h2>
+      <img src="\static\images\audiogram2.jpg" alt="Avatar man">
+      <br>
+      <br>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Parameter</th>
+            <th scope="col">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Type of Hearing Loss</th>
+            <td>-</td>
+          </tr>
+          <tr>
+            <th scope="row">Degree of Hearing Loss</th>
+            <td>-</td>
+          </tr>
+          <tr>
+            <th scope="row">Recommendations</th>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
+  </div>
+
+<style>
+    .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: #33339c;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color: rgb(215, 92, 92);
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 350px;
+  /* border-radius: 50%; */
+}
+</style>
+
+ <script>
+    // Make a GET request to the plot_audiogram route
+    fetch('/plot_audiogram')
+        .then(response => response.json())
+        .then(data => {
+            if (data.plot_filename) {
+                // Create an img element and set its src attribute to the plot filename
+                var img = document.createElement('img');
+                img.src = '/' + data.plot_filename;  // Assuming the plot files are stored in the static directory
+                img.alt = 'Audiogram Plot';
+
+                // Append the img element to the audiogram_plot div
+                document.getElementById('audiogram_plot').appendChild(img);
+            } else {
+                // Display an error message if no audiogram data found
+                document.getElementById('audiogram_plot').innerText = 'No audiogram data found';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching audiogram data:', error);
+        });
+</script> -->
+<!-- {% endblock %} -->
+
+<!-- # @views.route('/add_audiogram', methods=['POST'])
+# def add_audiogram():
+    
+#     if request.method == 'POST':
+#         data = request.json
+#         frequency = data.get('frequency')
+#         decibels = data.get('decibels')
+        
+
+#         user_email = current_user.email
+#         print(user_email)
+#         # Construct the column name based on the frequency
+#         if frequency:
+#             column_name = 'l{}'.format(frequency)
+
+#             # mysql.cursor.execute("SELECT * FROM audiogram WHERE userid = {}".format(user_email))
+#             mysql.cursor.execute("SELECT * FROM audiogram WHERE userid = %s", (user_email,))
+#             myresult = mysql.cursor.fetchall()
+
+#             if not myresult:
+            
+#                 sql = f"INSERT INTO audiogram (id, userid) VALUES ({user_id}, {user_email})"
+#                 mysql.cursor.execute(sql)
+#                 mysql.mydb.commit()
+#             else:
+#                 sql = "UPDATE audiogram set {} = {} WHERE id = {}".format(column_name, int(decibels), user_email)  
+#                 sql = "INSERT INTO audiogram (userid, {}) VALUES (%s, %s)".format(column_name)
+#                 mysql.cursor.execute(sql, (user_email, int(decibels)))
+#                 mysql.mydb.commit()
+
+#             print(mysql.cursor.rowcount, "record inserted.")
+#         # setattr(audiogram, f'l{frequency}', decibels)
+#         # db.session.add(audiogram)
+#         # db.session.commit()
+
+#         return jsonify({'message': 'Audiogram added successfully'}), 200
+#     else:
+#         return jsonify({'error': 'Invalid request method'}), 400 -->
