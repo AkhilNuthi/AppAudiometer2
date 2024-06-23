@@ -3,17 +3,17 @@
 App-Based Audiometer is a web application designed to measure hearing acuity. This project integrates HTML, CSS, JavaScript, Flask, and MySQL to provide an intuitive user interface and seamless user experience. Additionally, it employs a Machine Learning (ML) model trained on open-source data to enhance the accuracy of hearing tests.
 
 # App-Based Audiometer
-- User-friendly interface for conducting hearing tests \
-- Real-time data processing and result generation\
-- Secure user authentication and data storage\
-- Visualization of hearing test results\
+- User-friendly interface for conducting hearing tests 
+- Real-time data processing and result generation
+- Secure user authentication and data storage
+- Visualization of hearing test results
 - ML model integration for improved accuracy
 
 # Technologies Used
-- Frontend: HTML, CSS, JavaScript\
-- Backend: Flask\
-- Database: MySQL\
-- Machine Learning: Python (scikit-learn, pandas, numpy)\
+- Frontend: HTML, CSS, JavaScript
+- Backend: Flask
+- Database: MySQL
+- Machine Learning: Python (scikit-learn, pandas, numpy)
 - Others: Jinja2 for templating
 
 # Machine Learning Model
